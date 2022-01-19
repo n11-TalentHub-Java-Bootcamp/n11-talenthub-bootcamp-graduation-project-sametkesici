@@ -1,6 +1,5 @@
 package com.n11project.creditapplication.exception;
 
-import liquibase.pro.packaged.A;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

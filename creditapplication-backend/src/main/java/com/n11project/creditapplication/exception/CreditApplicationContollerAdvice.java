@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
 @ControllerAdvice
-public class CreditApplicationAdvice {
+public class CreditApplicationContollerAdvice {
 
     public ResponseEntity<ErrorResponse> handleBaseException(Exception exception , WebRequest request){
         BaseException baseException = (BaseException) exception;
