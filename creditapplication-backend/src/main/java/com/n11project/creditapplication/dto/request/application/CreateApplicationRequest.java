@@ -1,4 +1,4 @@
-package com.n11project.creditapplication.dto.request.customer;
+package com.n11project.creditapplication.dto.request.application;
 
 import lombok.Data;
 
@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
-public class CreateCustomerRequest {
+public class CreateApplicationRequest {
 
     private String name;
 
@@ -21,4 +21,5 @@ public class CreateCustomerRequest {
     private Date birthDate;
 
     private BigDecimal assurance;
+
 }

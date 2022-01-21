@@ -15,7 +15,6 @@ services:
       - POSTGRES_PASSWORD=123qwe
     networks:
       - postgres
-
 networks:
   postgres:
     driver: bridge

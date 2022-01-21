@@ -2,12 +2,14 @@ package com.n11project.creditapplication.exception;
 
 import org.springframework.http.HttpStatus;
 
-public class UserNotFoundException extends BaseException{
-    public UserNotFoundException(String message, int httpStatus) {
+public class CustomerNotFoundException extends BaseException{
+
+    public CustomerNotFoundException() {
         super("User not found!", HttpStatus.BAD_REQUEST.value());
     }
 
-    public UserNotFoundException(String message) {
+    public CustomerNotFoundException(String message) {
         super(message,HttpStatus.BAD_REQUEST.value());
     }
+
 }

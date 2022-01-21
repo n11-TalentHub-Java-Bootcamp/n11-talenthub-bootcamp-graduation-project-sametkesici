@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -33,9 +35,14 @@ public class Customer {
     private String phoneNumber;
 
     @Column
+    @Temporal(TemporalType.DATE)
     private Date birthDate;
 
     @Column
     private BigDecimal assurance;
+
+    @Column
+    private Integer creditScore;
+
 
 }
