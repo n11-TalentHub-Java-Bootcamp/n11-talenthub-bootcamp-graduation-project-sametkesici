@@ -2,7 +2,6 @@ package com.n11project.creditapplication.service;
 
 import com.n11project.creditapplication.dto.request.customer.UpdateCustomerRequest;
 import com.n11project.creditapplication.exception.CustomerNotFoundException;
-import com.n11project.creditapplication.model.Application;
 import com.n11project.creditapplication.model.Customer;
 import com.n11project.creditapplication.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +10,6 @@ import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -39,7 +37,6 @@ public class CustomerService {
     public Customer updateCustomer(String identificationNumber, UpdateCustomerRequest updateCustomerRequest) {
 
             Customer customer = findCustomerByIdentificationNumberOrThrowException(identificationNumber);
-
             BigDecimal monthlyIncome = updateCustomerRequest.getMonthlyIncome();
             String phoneNumber = updateCustomerRequest.getPhoneNumber();
             BigDecimal assurance = updateCustomerRequest.getAssurance();
@@ -56,7 +53,7 @@ public class CustomerService {
             return saveCustomer(customer);
     }
 
-    @Transactional
+
     public Customer saveCustomer(Customer customer){
         return customerRepository.save(customer);
     }

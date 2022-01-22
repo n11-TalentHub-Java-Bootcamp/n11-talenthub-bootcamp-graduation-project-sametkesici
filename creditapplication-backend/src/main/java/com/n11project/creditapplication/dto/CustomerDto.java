@@ -24,4 +24,5 @@ public class CustomerDto {
 
     private Integer creditScore;
 
+
 }

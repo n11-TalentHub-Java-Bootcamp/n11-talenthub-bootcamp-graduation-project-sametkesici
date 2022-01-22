@@ -25,19 +25,34 @@ public class ApplicationService {
 
 
     @Transactional
-    public void makeApplication (Customer customer){
+    public Application makeApplication (Customer customer){
         BigDecimal monthlyIncome = customer.getMonthlyIncome();
         BigDecimal assurance = customer.getAssurance();
         Integer creditScore = customer.getCreditScore();
         Application application = strategyContext.calculateLimitAndSetStatus(monthlyIncome,creditScore,assurance);
         application.setCustomer(customer);
-        applicationRepository.save(application);
+        return applicationRepository.save(application);
+    }
+
+    @Transactional
+    public Application updateApplication (Customer customer){
+        Application application = findApplicationByCustomerOrThrowException(customer);
+        Integer creditScore = customer.getCreditScore();
+        BigDecimal monthlyIncome = customer.getMonthlyIncome();
+        BigDecimal assurance = customer.getAssurance();
+        BigDecimal creditLimit = strategyContext.calculateLimitAndSetStatus(monthlyIncome,creditScore,assurance).getCreditLimit();
+        application.setCreditLimit(creditLimit);
+        return applicationRepository.save(application);
     }
 
     public Application findApplicationByIdentificationNumberAndBirthDateOrThrowException(FindApplicationRequest findApplicationRequest) {
         String identificationNumber = findApplicationRequest.getIdentificationNumber();
         Date birthDate = findApplicationRequest.getBirthDate();
         Customer customer = customerService.findCustomerByIdentificationNumberAndBirthDateOrThrowException(identificationNumber,birthDate);
+        return findApplicationByCustomerOrThrowException(customer);
+    }
+
+    public Application findApplicationByCustomerOrThrowException(Customer customer){
         return applicationRepository.findByCustomer(customer).orElseThrow(ApplicationNotFoundException::new);
     }
 }
