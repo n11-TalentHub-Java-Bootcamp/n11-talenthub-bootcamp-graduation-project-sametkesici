@@ -45,9 +45,7 @@ public class ApplicationService {
         return applicationRepository.save(application);
     }
 
-    public Application findApplicationByIdentificationNumberAndBirthDateOrThrowException(FindApplicationRequest findApplicationRequest) {
-        String identificationNumber = findApplicationRequest.getIdentificationNumber();
-        Date birthDate = findApplicationRequest.getBirthDate();
+    public Application findApplicationByIdentificationNumberAndBirthDateOrThrowException(String identificationNumber , Date birthDate) {
         Customer customer = customerService.findCustomerByIdentificationNumberAndBirthDateOrThrowException(identificationNumber,birthDate);
         return findApplicationByCustomerOrThrowException(customer);
     }

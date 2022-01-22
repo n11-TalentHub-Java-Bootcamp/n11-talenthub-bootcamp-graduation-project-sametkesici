@@ -1,7 +1,9 @@
 package com.n11project.creditapplication.service;
 
 import com.n11project.creditapplication.dto.request.customer.UpdateCustomerRequest;
+import com.n11project.creditapplication.exception.CustomerAlreadyExistException;
 import com.n11project.creditapplication.exception.CustomerNotFoundException;
+import com.n11project.creditapplication.exception.InputMismatchException;
 import com.n11project.creditapplication.model.Customer;
 import com.n11project.creditapplication.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,9 +24,13 @@ public class CustomerService {
 
     @Transactional
     public Customer createCustomer(Customer customer) {
-        Integer creditScore = creditScoreService.getCreditScore();
-        customer.setCreditScore(creditScore);
-        return saveCustomer(customer);
+        String identificationNumber = customer.getIdentificationNumber();
+        if(customerRepository.findByIdentificationNumber(identificationNumber).isEmpty()){
+            Integer creditScore = creditScoreService.getCreditScore();
+            customer.setCreditScore(creditScore);
+            return saveCustomer(customer);
+        }
+        throw new CustomerAlreadyExistException();
     }
 
     @Transactional
@@ -53,7 +59,6 @@ public class CustomerService {
             return saveCustomer(customer);
     }
 
-
     public Customer saveCustomer(Customer customer){
         return customerRepository.save(customer);
     }
@@ -64,7 +69,7 @@ public class CustomerService {
     }
 
     public Customer findCustomerByIdentificationNumberAndBirthDateOrThrowException(String identificationNumber , Date birthDate){
-        return customerRepository.findByIdentificationNumberAndBirthDate(identificationNumber,birthDate).orElseThrow(CustomerNotFoundException::new);
+        return customerRepository.findByIdentificationNumberAndBirthDate(identificationNumber,birthDate).orElseThrow(InputMismatchException::new);
     }
 
 

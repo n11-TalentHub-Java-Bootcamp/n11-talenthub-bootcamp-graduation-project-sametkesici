@@ -24,7 +24,7 @@ public class Application {
     @Enumerated(EnumType.STRING)
     private ApplicationStatus applicationStatus;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Customer customer;
 
 }

@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 public class CustomerNotFoundException extends BaseException{
 
     public CustomerNotFoundException() {
-        super("User not found!", HttpStatus.BAD_REQUEST.value());
+        super("Customer not found!", HttpStatus.BAD_REQUEST.value());
     }
 
     public CustomerNotFoundException(String message) {
