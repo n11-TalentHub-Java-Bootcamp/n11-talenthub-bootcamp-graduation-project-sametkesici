@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/creditapplication
+    username: db_user
+    password: 123qwe
+    hikari:
+      connectionTimeout: 30000
+      idleTimeout: 600000
+      maxLifetime: 1800000
+  jpa:
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    database: postgresql
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        globally_quoted_identifiers: true
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/master.xml
+
+logging:
+  level:
+    com.n11project.creditapplication: DEBUG
