@@ -1,6 +1,5 @@
 package com.n11project.creditapplication.service;
 
-import com.n11project.creditapplication.dto.request.application.FindApplicationRequest;
 import com.n11project.creditapplication.exception.ApplicationNotFoundException;
 import com.n11project.creditapplication.model.Application;
 import com.n11project.creditapplication.model.Customer;

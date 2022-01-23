@@ -4,7 +4,7 @@ import com.n11project.creditapplication.dto.request.customer.CreateCustomerReque
 import com.n11project.creditapplication.dto.request.customer.UpdateCustomerRequest;
 import com.n11project.creditapplication.dto.response.ApplicationResponse;
 import com.n11project.creditapplication.mapper.ApplicationResponseMapper;
-import com.n11project.creditapplication.mapper.customer.CreateCustomerMapper;
+import com.n11project.creditapplication.mapper.CreateCustomerMapper;
 import com.n11project.creditapplication.model.Application;
 import com.n11project.creditapplication.model.Customer;
 import com.n11project.creditapplication.service.ApplicationService;

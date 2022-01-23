@@ -1,4 +1,4 @@
-package com.n11project.creditapplication.mapper.customer;
+package com.n11project.creditapplication.mapper;
 
 import com.n11project.creditapplication.dto.request.customer.CreateCustomerRequest;
 import com.n11project.creditapplication.mapper.BaseMapper;

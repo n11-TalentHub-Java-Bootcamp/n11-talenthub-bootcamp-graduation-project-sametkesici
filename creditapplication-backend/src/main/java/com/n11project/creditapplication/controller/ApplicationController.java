@@ -1,12 +1,9 @@
 package com.n11project.creditapplication.controller;
 
-import com.n11project.creditapplication.dto.ApplicationDto;
 import com.n11project.creditapplication.dto.response.ApplicationResponse;
 import com.n11project.creditapplication.mapper.ApplicationResponseMapper;
-import com.n11project.creditapplication.mapper.application.ApplicationMapper;
 import com.n11project.creditapplication.model.Application;
 import com.n11project.creditapplication.service.ApplicationService;
-import liquibase.pro.packaged.R;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
