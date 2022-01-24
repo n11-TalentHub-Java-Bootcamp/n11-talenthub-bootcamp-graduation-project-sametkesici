@@ -19,11 +19,11 @@ public class Application {
     @Column
     private BigDecimal creditLimit;
 
-    @Column
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private ApplicationStatus applicationStatus;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @OneToOne()
     private Customer customer;
 
 }

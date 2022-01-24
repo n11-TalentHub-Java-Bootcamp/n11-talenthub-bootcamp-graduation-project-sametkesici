@@ -1,6 +1,7 @@
 package com.n11project.creditapplication.repository;
 
 import com.n11project.creditapplication.model.Customer;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

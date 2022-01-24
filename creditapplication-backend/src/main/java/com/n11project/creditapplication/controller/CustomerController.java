@@ -1,7 +1,7 @@
 package com.n11project.creditapplication.controller;
 
-import com.n11project.creditapplication.dto.request.customer.CreateCustomerRequest;
-import com.n11project.creditapplication.dto.request.customer.UpdateCustomerRequest;
+import com.n11project.creditapplication.dto.request.CreateCustomerRequest;
+import com.n11project.creditapplication.dto.request.UpdateCustomerRequest;
 import com.n11project.creditapplication.dto.response.ApplicationResponse;
 import com.n11project.creditapplication.mapper.ApplicationResponseMapper;
 import com.n11project.creditapplication.mapper.CreateCustomerMapper;

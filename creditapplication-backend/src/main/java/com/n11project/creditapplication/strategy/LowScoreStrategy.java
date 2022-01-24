@@ -15,6 +15,6 @@ public class LowScoreStrategy implements CalculateLimitStrategy{
 
     @Override
     public Boolean isSuitable(BigDecimal monthlyIncome , Integer creditScore) {
-        return creditScore < 1000 && monthlyIncome.compareTo(new BigDecimal(5000)) < 0;
+        return creditScore < 1000 && creditScore > 500 && monthlyIncome.compareTo(new BigDecimal(5000)) < 0;
     }
 }

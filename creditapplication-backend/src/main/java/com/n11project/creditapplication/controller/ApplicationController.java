@@ -20,11 +20,15 @@ public class ApplicationController {
 
     private final ApplicationResponseMapper applicationResponseMapper;
 
+
     @GetMapping
     public ResponseEntity<ApplicationResponse> findApplicationByIdentificationNumberAndBirthDate(@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date birthDate ,@RequestParam String identificationNumber){
         Application application = applicationService.findApplicationByIdentificationNumberAndBirthDateOrThrowException(identificationNumber, birthDate);
         ApplicationResponse applicationResponse = applicationResponseMapper.toDto(application);
         return ResponseEntity.ok(applicationResponse);
     }
+
+
+
 
 }

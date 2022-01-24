@@ -1,5 +1,6 @@
 package com.n11project.creditapplication.model;
 
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,19 +27,20 @@ public class Customer {
     @Column(unique = true , nullable = false)
     private String identificationNumber;
 
+    @Column(nullable = false)
     private BigDecimal monthlyIncome;
 
     @Column(unique = true , nullable = false)
     private String phoneNumber;
 
-    @Column
+    @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     private Date birthDate;
 
     @Column
     private BigDecimal assurance;
 
-    @Column
+    @Column(nullable = false)
     private Integer creditScore;
 
 

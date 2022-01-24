@@ -1,9 +1,10 @@
-package com.n11project.creditapplication.dto.request.application;
+package com.n11project.creditapplication.dto.request;
 
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 public class FindApplicationRequest {
@@ -12,6 +13,7 @@ public class FindApplicationRequest {
     private String identificationNumber;
 
     @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthDate;
 
 }

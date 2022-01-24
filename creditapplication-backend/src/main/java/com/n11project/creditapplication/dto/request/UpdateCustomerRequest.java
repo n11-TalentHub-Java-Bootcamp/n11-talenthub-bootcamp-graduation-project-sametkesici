@@ -1,4 +1,4 @@
-package com.n11project.creditapplication.dto.request.customer;
+package com.n11project.creditapplication.dto.request;
 
 import lombok.Data;
 
@@ -14,7 +14,6 @@ public class UpdateCustomerRequest {
     @NotNull
     private String phoneNumber;
 
-    @NotNull
     private BigDecimal assurance;
 
 }

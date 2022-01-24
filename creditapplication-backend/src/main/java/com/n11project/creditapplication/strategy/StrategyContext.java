@@ -1,5 +1,8 @@
 package com.n11project.creditapplication.strategy;
 
+import static com.n11project.creditapplication.model.ApplicationStatus.APPROVED;
+import static com.n11project.creditapplication.model.ApplicationStatus.REJECTED;
+
 import com.n11project.creditapplication.exception.StrategyNotFoundException;
 import com.n11project.creditapplication.model.Application;
 import com.n11project.creditapplication.model.ApplicationStatus;
@@ -30,9 +33,9 @@ public class StrategyContext {
 
     private void setApplicationStatus(Integer creditScore, Application application) {
         if(creditScore < 500){
-            application.setApplicationStatus(ApplicationStatus.REJECT);
+            application.setApplicationStatus(REJECTED);
         }else{
-            application.setApplicationStatus(ApplicationStatus.APPROVE);
+            application.setApplicationStatus(APPROVED);
         }
     }
 }
