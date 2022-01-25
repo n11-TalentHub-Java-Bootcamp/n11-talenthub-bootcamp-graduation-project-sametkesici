@@ -35,20 +35,13 @@ public class CustomerService {
         String phoneNumber = customer.getPhoneNumber();
         BigDecimal assurance = checkAssuranceIsNullAndReturnAssurance(customer.getAssurance());
 
-        if(customerRepository.findByIdentificationNumber(identificationNumber).isEmpty() && FALSE.equals(checkPhoneNumberIsSave(phoneNumber))){
+        if(customerRepository.findByIdentificationNumber(identificationNumber).isEmpty() && FALSE.equals(checkPhoneNumberIsAlreadyUsed(phoneNumber))){
             Integer creditScore = creditScoreService.getCreditScore();
             customer.setAssurance(assurance);
             customer.setCreditScore(creditScore);
             return saveCustomer(customer);
         }
         throw new CustomerAlreadyExistException();
-    }
-
-
-    @Transactional
-    public void deleteById(String identificationNumber) {
-        Customer customer = findCustomerByIdentificationNumberOrThrowException(identificationNumber);
-        customerRepository.deleteById(customer.getId());
     }
 
     @Transactional
@@ -58,43 +51,50 @@ public class CustomerService {
         String phoneNumber = updateCustomerRequest.getPhoneNumber();
         BigDecimal assurance = checkAssuranceIsNullAndReturnAssurance(updateCustomerRequest.getAssurance());
 
-        if(FALSE.equals(checkPhoneNumberIsSave(phoneNumber))){
-          customer.setMonthlyIncome(monthlyIncome);
-          customer.setPhoneNumber(phoneNumber);
-          customer.setAssurance(assurance);
-          return saveCustomer(customer);
+        if(FALSE.equals(checkPhoneNumberIsAlreadyUsed(phoneNumber))){
+            customer.setMonthlyIncome(monthlyIncome);
+            customer.setPhoneNumber(phoneNumber);
+            customer.setAssurance(assurance);
+            return saveCustomer(customer);
         }
         throw new PhoneNumberAlreadyExistException();
     }
 
-    public BigDecimal checkAssuranceIsNullAndReturnAssurance(BigDecimal assurance) {
+    @Transactional
+    public void deleteByIdentificationNumber(String identificationNumber) {
+        Customer customer = findCustomerByIdentificationNumberOrThrowException(identificationNumber);
+        customerRepository.deleteById(customer.getId());
+    }
+
+    public Customer findCustomerByIdentificationNumberAndBirthDateOrThrowException(String identificationNumber , Date birthDate){
+        return customerRepository.findByIdentificationNumberAndBirthDate(identificationNumber,birthDate).orElseThrow(InputMismatchException::new);
+    }
+
+    private BigDecimal checkAssuranceIsNullAndReturnAssurance(BigDecimal assurance) {
         if(Objects.isNull(assurance)){
             return new BigDecimal(0);
         }
         return assurance;
     }
 
-    public Boolean checkPhoneNumberIsSave(String phoneNumber){
+    private Boolean checkPhoneNumberIsAlreadyUsed(String phoneNumber){
         return findAllPhoneNumbers().contains(phoneNumber);
     }
 
-    public Set<String> findAllPhoneNumbers(){
+    private Set<String> findAllPhoneNumbers(){
         List<Customer> customerList = customerRepository.findAll();
         return customerList.stream().map(Customer::getPhoneNumber).collect(Collectors.toSet());
     }
 
-    public Customer saveCustomer(Customer customer){
+    private Customer saveCustomer(Customer customer){
         return customerRepository.save(customer);
     }
 
 
-    public Customer findCustomerByIdentificationNumberOrThrowException(String identificationNumber){
+    private Customer findCustomerByIdentificationNumberOrThrowException(String identificationNumber){
         return customerRepository.findByIdentificationNumber(identificationNumber).orElseThrow(CustomerNotFoundException::new);
     }
 
-    public Customer findCustomerByIdentificationNumberAndBirthDateOrThrowException(String identificationNumber , Date birthDate){
-        return customerRepository.findByIdentificationNumberAndBirthDate(identificationNumber,birthDate).orElseThrow(InputMismatchException::new);
-    }
 
 
 }

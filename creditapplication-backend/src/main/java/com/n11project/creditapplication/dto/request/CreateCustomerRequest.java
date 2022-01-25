@@ -1,6 +1,7 @@
 package com.n11project.creditapplication.dto.request;
 
 import javax.persistence.PrePersist;
+import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;

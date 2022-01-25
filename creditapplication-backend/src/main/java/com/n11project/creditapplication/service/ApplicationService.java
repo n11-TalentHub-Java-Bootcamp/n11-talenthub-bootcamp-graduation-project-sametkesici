@@ -50,7 +50,7 @@ public class ApplicationService {
         return findApplicationByCustomerOrThrowException(customer);
     }
 
-    public Application findApplicationByCustomerOrThrowException(Customer customer){
+    private Application findApplicationByCustomerOrThrowException(Customer customer){
         return applicationRepository.findByCustomer(customer).orElseThrow(ApplicationNotFoundException::new);
     }
 }

@@ -1,7 +1,10 @@
 package com.n11project.creditapplication.model;
 
-import javax.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -9,8 +12,10 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity(name = "customers")
-@Getter
-@Setter
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @SequenceGenerator(name = "seq_customer", sequenceName = "seq_customer")
 public class Customer {
 
@@ -34,7 +39,6 @@ public class Customer {
     private String phoneNumber;
 
     @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
     private Date birthDate;
 
     @Column

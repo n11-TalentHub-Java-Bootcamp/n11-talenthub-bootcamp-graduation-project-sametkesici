@@ -45,7 +45,7 @@ public class CustomerController {
 
     @DeleteMapping("/{identificationNumber}")
     public ResponseEntity<String> deleteCustomer(@PathVariable String identificationNumber){
-        customerService.deleteById(identificationNumber);
+        customerService.deleteByIdentificationNumber(identificationNumber);
         return ResponseEntity.ok("OK");
     }
 
