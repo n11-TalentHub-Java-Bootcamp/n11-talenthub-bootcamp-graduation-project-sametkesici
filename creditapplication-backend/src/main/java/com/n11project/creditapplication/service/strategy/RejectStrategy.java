@@ -1,7 +1,6 @@
-package com.n11project.creditapplication.strategy;
+package com.n11project.creditapplication.service.strategy;
 
 import org.springframework.stereotype.Component;
-import java.math.BigDecimal;
 
 @Component
 public class RejectStrategy implements CalculateLimitStrategy{

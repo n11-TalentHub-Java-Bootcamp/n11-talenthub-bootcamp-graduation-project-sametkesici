@@ -1,9 +1,6 @@
-package com.n11project.creditapplication.strategy;
+package com.n11project.creditapplication.service.strategy;
 
-import java.math.RoundingMode;
 import org.springframework.stereotype.Component;
-
-import java.math.BigDecimal;
 
 import static com.n11project.creditapplication.constants.CreditMultiplierConstant.CREDIT_LIMIT_MULTIPLIER;
 

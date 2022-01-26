@@ -1,14 +1,12 @@
-package com.n11project.creditapplication.strategy;
+package com.n11project.creditapplication.service.strategy;
 
 import static com.n11project.creditapplication.model.ApplicationStatus.APPROVED;
 import static com.n11project.creditapplication.model.ApplicationStatus.REJECTED;
 
 import com.n11project.creditapplication.exception.StrategyNotFoundException;
 import com.n11project.creditapplication.model.Application;
-import com.n11project.creditapplication.model.ApplicationStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import java.math.BigDecimal;
 import java.util.List;
 
 

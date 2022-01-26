@@ -4,12 +4,10 @@ import com.n11project.creditapplication.exception.ApplicationNotFoundException;
 import com.n11project.creditapplication.model.Application;
 import com.n11project.creditapplication.model.Customer;
 import com.n11project.creditapplication.repository.ApplicationRepository;
-import com.n11project.creditapplication.strategy.StrategyContext;
-import java.util.Objects;
+import com.n11project.creditapplication.service.strategy.StrategyContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
-import java.math.BigDecimal;
 import java.util.Date;
 
 

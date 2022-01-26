@@ -1,4 +1,4 @@
-package com.n11project.creditapplication.strategy;
+package com.n11project.creditapplication.service.strategy;
 
 
 public interface CalculateLimitStrategy {

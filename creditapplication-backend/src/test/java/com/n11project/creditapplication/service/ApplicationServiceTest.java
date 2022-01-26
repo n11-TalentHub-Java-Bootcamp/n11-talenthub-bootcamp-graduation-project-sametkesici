@@ -5,7 +5,7 @@ import static com.n11project.creditapplication.model.ApplicationStatus.APPROVED;
 import com.n11project.creditapplication.model.Application;
 import com.n11project.creditapplication.model.Customer;
 import com.n11project.creditapplication.repository.ApplicationRepository;
-import com.n11project.creditapplication.strategy.StrategyContext;
+import com.n11project.creditapplication.service.strategy.StrategyContext;
 import java.util.Date;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
