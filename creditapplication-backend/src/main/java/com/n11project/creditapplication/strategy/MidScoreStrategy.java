@@ -10,12 +10,12 @@ import java.math.BigDecimal;
 public class MidScoreStrategy implements CalculateLimitStrategy{
 
     @Override
-    public BigDecimal calculateLimit(BigDecimal monthlyIncome, BigDecimal assurance) {
-        return new BigDecimal(20000).add(assurance.divide(new BigDecimal(5), RoundingMode.CEILING));
+    public Double calculateLimit(Double monthlyIncome, Double assurance) {
+        return 20000 + assurance / 5 ;
     }
 
     @Override
-    public Boolean isSuitable(BigDecimal monthlyIncome, Integer creditScore) {
-        return creditScore < 1000 && creditScore > 500 && monthlyIncome.compareTo(new BigDecimal(10000)) < 0 && monthlyIncome.compareTo(new BigDecimal(5000)) > 0;
+    public Boolean isSuitable(Double monthlyIncome, Integer creditScore) {
+        return creditScore < 1000 && creditScore > 500 &&  monthlyIncome > 5000 && monthlyIncome < 10000;
     }
 }

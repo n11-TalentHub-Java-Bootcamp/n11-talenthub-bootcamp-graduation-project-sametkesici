@@ -7,11 +7,9 @@ import com.n11project.creditapplication.exception.InputMismatchException;
 import com.n11project.creditapplication.exception.PhoneNumberAlreadyExistException;
 import com.n11project.creditapplication.model.Customer;
 import com.n11project.creditapplication.repository.CustomerRepository;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import liquibase.pro.packaged.D;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -40,8 +38,9 @@ class CustomerServiceTest {
   @Test
   void shouldCreateUserWhenIdentificationNumberAndPhoneNumberNotUsed(){
       Customer customer = Customer.builder().name("Samet").lastName("Kesici").identificationNumber("50461491404").phoneNumber("5347208277")
-                                  .assurance(new BigDecimal(0)).birthDate(new Date()).monthlyIncome(new BigDecimal(5000)).build();
+                                  .assurance(0.0).birthDate(new Date()).monthlyIncome(5000.0).build();
       when(customerRepository.findByIdentificationNumber(customer.getIdentificationNumber())).thenReturn(Optional.empty());
+      when(creditScoreService.getCreditScore()).thenReturn(100);
       customerService.createCustomer(customer);
       ArgumentCaptor<Customer> customerArgumentCaptor = ArgumentCaptor.forClass(Customer.class);
       verify(customerRepository).save(customerArgumentCaptor.capture());
@@ -56,7 +55,7 @@ class CustomerServiceTest {
   @Test
   void shouldCreateUserThrowExceptionWhenIdentificationNumberAndPhoneNumberAreUsed(){
     Customer customer = Customer.builder().name("Samet").lastName("Kesici").identificationNumber("50461491404").phoneNumber("5347208277")
-                                .assurance(new BigDecimal(0)).birthDate(new Date()).creditScore(600).monthlyIncome(new BigDecimal(5000)).build();
+                                .assurance(0.0).birthDate(new Date()).creditScore(600).monthlyIncome(5000.0).build();
 
     when(customerRepository.findByIdentificationNumber(customer.getIdentificationNumber())).thenReturn(Optional.of(new Customer()));
 
@@ -65,7 +64,7 @@ class CustomerServiceTest {
 
   @Test
   void shouldUpdateCustomerWhenIdentificationNumberIsAlreadyUsed(){
-    UpdateCustomerRequest updateCustomerRequest = UpdateCustomerRequest.builder().phoneNumber("5347208277").assurance(new BigDecimal(100)).monthlyIncome(new BigDecimal(10000)).build();
+    UpdateCustomerRequest updateCustomerRequest = UpdateCustomerRequest.builder().phoneNumber("5347208277").assurance(100.0).monthlyIncome(10000.0).build();
     when(customerRepository.findByIdentificationNumber("50461491404")).thenReturn(Optional.of(Customer.builder().identificationNumber("50461491404").build()));
 
     customerService.updateCustomer("50461491404",updateCustomerRequest);
@@ -74,13 +73,13 @@ class CustomerServiceTest {
     verify(customerRepository).save(customerArgumentCaptor.capture());
     Customer updatedCustomer = customerArgumentCaptor.getValue();
     assertEquals("5347208277",updatedCustomer.getPhoneNumber());
-    assertEquals(new BigDecimal(100), updatedCustomer.getAssurance());
-    assertEquals(new BigDecimal(10000),updatedCustomer.getMonthlyIncome());
+    assertEquals(100.0, updatedCustomer.getAssurance());
+    assertEquals(10000.0,updatedCustomer.getMonthlyIncome());
   }
 
   @Test
   void shouldUpdateCustomerThrowExceptionWhenPhoneNumberIsAlreadyUsed(){
-    UpdateCustomerRequest updateCustomerRequest = UpdateCustomerRequest.builder().phoneNumber("5347208277").assurance(new BigDecimal(100)).monthlyIncome(new BigDecimal(10000)).build();
+    UpdateCustomerRequest updateCustomerRequest = UpdateCustomerRequest.builder().phoneNumber("5347208277").assurance(100.0).monthlyIncome(10000.0).build();
     Customer customer = Customer.builder().phoneNumber("5347208277").build();
 
     when(customerRepository.findByIdentificationNumber("50461491404")).thenReturn(Optional.of(customer));
@@ -99,14 +98,27 @@ class CustomerServiceTest {
 
   @Test
   void shouldFindCustomerByIdentificationNumberAndBirthDate(){
+      Date date = new Date();
+      Customer customer = Customer.builder().name("Samet").lastName("Kesici").identificationNumber("50461491404").phoneNumber("5347208277")
+                                .assurance(0.0).birthDate(date).creditScore(600).monthlyIncome(5000.0).build();
 
+      when(customerRepository.findByIdentificationNumberAndBirthDate(customer.getIdentificationNumber(),customer.getBirthDate())).thenReturn(Optional.of(customer));
 
+      customerService.findCustomerByIdentificationNumberAndBirthDateOrThrowException(customer.getIdentificationNumber(),customer.getBirthDate());
+
+      verify(customerRepository).findByIdentificationNumberAndBirthDate("50461491404",date);
 
   }
 
   @Test
   void shouldFindCustomerThrowExceptionWhenInputsAreMismatch(){
+    Date date = new Date();
+    Customer customer = Customer.builder().name("Samet").lastName("Kesici").identificationNumber("50461491404").phoneNumber("5347208277")
+                                .assurance(0.0).birthDate(date).creditScore(600).monthlyIncome(5000.0).build();
 
+    when(customerRepository.findByIdentificationNumberAndBirthDate(customer.getIdentificationNumber(),customer.getBirthDate())).thenReturn(Optional.empty());
+
+    assertThrows(InputMismatchException.class , () -> customerService.findCustomerByIdentificationNumberAndBirthDateOrThrowException("50461491404",date));
 
   }
 }

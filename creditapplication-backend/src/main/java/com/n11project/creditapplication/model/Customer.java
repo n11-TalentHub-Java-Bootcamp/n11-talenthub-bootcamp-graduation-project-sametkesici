@@ -1,5 +1,6 @@
 package com.n11project.creditapplication.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,7 +34,7 @@ public class Customer {
     private String identificationNumber;
 
     @Column(nullable = false)
-    private BigDecimal monthlyIncome;
+    private Double monthlyIncome;
 
     @Column(unique = true , nullable = false)
     private String phoneNumber;
@@ -42,10 +43,14 @@ public class Customer {
     private Date birthDate;
 
     @Column
-    private BigDecimal assurance;
+    private Double assurance;
 
-    @Column(nullable = false)
+    @Column()
     private Integer creditScore;
+
+    @OneToOne(cascade = CascadeType.ALL , mappedBy = "customer")
+    @JsonIgnore
+    private Application application;
 
 
 }

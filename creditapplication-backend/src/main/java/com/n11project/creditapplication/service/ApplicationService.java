@@ -26,8 +26,8 @@ public class ApplicationService {
 
     @Transactional
     public Application makeApplication (Customer customer){
-        BigDecimal monthlyIncome = customer.getMonthlyIncome();
-        BigDecimal assurance = customer.getAssurance();
+        Double monthlyIncome = customer.getMonthlyIncome();
+        Double assurance = customer.getAssurance();
         Integer creditScore = customer.getCreditScore();
         Application application = strategyContext.calculateLimitAndSetStatus(monthlyIncome,creditScore,assurance);
         application.setCustomer(customer);
@@ -38,9 +38,9 @@ public class ApplicationService {
     public Application updateApplication (Customer customer){
         Application application = findApplicationByCustomerOrThrowException(customer);
         Integer creditScore = customer.getCreditScore();
-        BigDecimal monthlyIncome = customer.getMonthlyIncome();
-        BigDecimal assurance = customer.getAssurance();
-        BigDecimal creditLimit = strategyContext.calculateLimitAndSetStatus(monthlyIncome,creditScore,assurance).getCreditLimit();
+        Double monthlyIncome = customer.getMonthlyIncome();
+        Double assurance = customer.getAssurance();
+        Double creditLimit = strategyContext.calculateLimitAndSetStatus(monthlyIncome,creditScore,assurance).getCreditLimit();
         application.setCreditLimit(creditLimit);
         return applicationRepository.save(application);
     }

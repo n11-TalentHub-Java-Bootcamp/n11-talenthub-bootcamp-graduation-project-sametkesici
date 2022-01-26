@@ -33,7 +33,7 @@ public class CustomerService {
     public Customer createCustomer(Customer customer) {
         String identificationNumber = customer.getIdentificationNumber();
         String phoneNumber = customer.getPhoneNumber();
-        BigDecimal assurance = checkAssuranceIsNullAndReturnAssurance(customer.getAssurance());
+        Double assurance = checkAssuranceIsNullAndReturnAssurance(customer.getAssurance());
 
         if(customerRepository.findByIdentificationNumber(identificationNumber).isEmpty() && FALSE.equals(checkPhoneNumberIsAlreadyUsed(phoneNumber))){
             Integer creditScore = creditScoreService.getCreditScore();
@@ -47,9 +47,9 @@ public class CustomerService {
     @Transactional
     public Customer updateCustomer(String identificationNumber, UpdateCustomerRequest updateCustomerRequest) {
         Customer customer = findCustomerByIdentificationNumberOrThrowException(identificationNumber);
-        BigDecimal monthlyIncome = updateCustomerRequest.getMonthlyIncome();
+        Double monthlyIncome = updateCustomerRequest.getMonthlyIncome();
         String phoneNumber = updateCustomerRequest.getPhoneNumber();
-        BigDecimal assurance = checkAssuranceIsNullAndReturnAssurance(updateCustomerRequest.getAssurance());
+        Double assurance = checkAssuranceIsNullAndReturnAssurance(updateCustomerRequest.getAssurance());
 
         if(FALSE.equals(checkPhoneNumberIsAlreadyUsed(phoneNumber))){
             customer.setMonthlyIncome(monthlyIncome);
@@ -70,9 +70,13 @@ public class CustomerService {
         return customerRepository.findByIdentificationNumberAndBirthDate(identificationNumber,birthDate).orElseThrow(InputMismatchException::new);
     }
 
-    private BigDecimal checkAssuranceIsNullAndReturnAssurance(BigDecimal assurance) {
+    public Customer saveCustomer(Customer customer){
+        return customerRepository.save(customer);
+    }
+
+    private Double checkAssuranceIsNullAndReturnAssurance(Double assurance) {
         if(Objects.isNull(assurance)){
-            return new BigDecimal(0);
+            return 0.0;
         }
         return assurance;
     }
@@ -85,11 +89,6 @@ public class CustomerService {
         List<Customer> customerList = customerRepository.findAll();
         return customerList.stream().map(Customer::getPhoneNumber).collect(Collectors.toSet());
     }
-
-    private Customer saveCustomer(Customer customer){
-        return customerRepository.save(customer);
-    }
-
 
     private Customer findCustomerByIdentificationNumberOrThrowException(String identificationNumber){
         return customerRepository.findByIdentificationNumber(identificationNumber).orElseThrow(CustomerNotFoundException::new);

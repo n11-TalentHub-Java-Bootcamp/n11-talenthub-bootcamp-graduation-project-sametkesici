@@ -11,12 +11,12 @@ import static com.n11project.creditapplication.constants.CreditMultiplierConstan
 public class HighScoreStrategy implements CalculateLimitStrategy{
 
     @Override
-    public BigDecimal calculateLimit(BigDecimal monthlyIncome, BigDecimal assurance) {
-        return monthlyIncome.multiply(CREDIT_LIMIT_MULTIPLIER).add(assurance.divide(new BigDecimal(2), RoundingMode.CEILING));
+    public Double calculateLimit(Double monthlyIncome, Double assurance) {
+        return monthlyIncome * CREDIT_LIMIT_MULTIPLIER + assurance / 2 ;
     }
 
     @Override
-    public Boolean isSuitable(BigDecimal monthlyIncome , Integer creditScore) {
+    public Boolean isSuitable(Double monthlyIncome , Integer creditScore) {
         return creditScore >= 1000;
     }
 }

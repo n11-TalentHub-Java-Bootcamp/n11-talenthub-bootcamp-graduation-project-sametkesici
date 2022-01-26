@@ -23,7 +23,7 @@ public class CreateCustomerRequest {
     private String identificationNumber;
 
     @NotNull
-    private BigDecimal monthlyIncome;
+    private Double monthlyIncome;
 
     @NotNull
     private String phoneNumber;
@@ -33,6 +33,6 @@ public class CreateCustomerRequest {
     private Date birthDate;
 
     @NotNull
-    private BigDecimal assurance;
+    private Double assurance;
 
 }

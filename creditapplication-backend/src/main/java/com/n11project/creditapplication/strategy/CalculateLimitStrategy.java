@@ -1,10 +1,9 @@
 package com.n11project.creditapplication.strategy;
 
-import java.math.BigDecimal;
 
 public interface CalculateLimitStrategy {
 
-    BigDecimal calculateLimit(BigDecimal monthlyIncome , BigDecimal assurance);
+    Double calculateLimit(Double monthlyIncome , Double assurance);
 
-    Boolean isSuitable(BigDecimal monthlyIncome, Integer creditScore);
+    Boolean isSuitable(Double monthlyIncome, Integer creditScore);
 }

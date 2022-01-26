@@ -12,7 +12,7 @@ public class CustomerDto {
 
     private String lastName;
 
-    private BigDecimal monthlyIncome;
+    private Double monthlyIncome;
 
     private String identificationNumber;
 
@@ -20,7 +20,7 @@ public class CustomerDto {
 
     private Date birthDate;
 
-    private BigDecimal assurance;
+    private Double assurance;
 
     private Integer creditScore;
 

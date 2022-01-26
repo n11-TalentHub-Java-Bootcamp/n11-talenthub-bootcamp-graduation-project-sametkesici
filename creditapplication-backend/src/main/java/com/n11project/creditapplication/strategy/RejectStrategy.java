@@ -7,12 +7,12 @@ import java.math.BigDecimal;
 public class RejectStrategy implements CalculateLimitStrategy{
 
     @Override
-    public BigDecimal calculateLimit(BigDecimal monthlyIncome, BigDecimal assurance) {
-        return new BigDecimal(0);
+    public Double calculateLimit(Double monthlyIncome, Double assurance) {
+        return 0.0;
     }
 
     @Override
-    public Boolean isSuitable(BigDecimal monthlyIncome, Integer creditScore) {
+    public Boolean isSuitable(Double monthlyIncome, Integer creditScore) {
         return creditScore < 500 ;
     }
 }

@@ -8,6 +8,6 @@ public final class CreditMultiplierConstant {
         throw new UnsupportedOperationException("This is a constant class and cannot be instantiated");
     }
 
-    public static final BigDecimal CREDIT_LIMIT_MULTIPLIER = BigDecimal.valueOf(4);
+    public static final Integer CREDIT_LIMIT_MULTIPLIER = 4;
 
 }

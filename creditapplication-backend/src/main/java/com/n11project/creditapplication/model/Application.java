@@ -23,13 +23,15 @@ public class Application {
     private Long id;
 
     @Column
-    private BigDecimal creditLimit;
+    private Double creditLimit;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private ApplicationStatus applicationStatus;
 
     @OneToOne()
+    @JoinColumn(name = "customer_id")
     private Customer customer;
+
 
 }

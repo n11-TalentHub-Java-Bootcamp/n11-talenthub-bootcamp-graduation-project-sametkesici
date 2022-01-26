@@ -15,11 +15,11 @@ import lombok.NoArgsConstructor;
 public class UpdateCustomerRequest {
 
     @NotNull
-    private BigDecimal monthlyIncome;
+    private Double monthlyIncome;
 
     @NotNull
     private String phoneNumber;
 
-    private BigDecimal assurance;
+    private Double assurance;
 
 }
