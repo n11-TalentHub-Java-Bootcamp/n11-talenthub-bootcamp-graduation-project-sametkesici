@@ -5,12 +5,14 @@ import com.n11project.creditapplication.mapper.ApplicationResponseMapper;
 import com.n11project.creditapplication.model.Application;
 import com.n11project.creditapplication.service.ApplicationService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/application")
@@ -25,6 +27,7 @@ public class ApplicationController {
     public ResponseEntity<ApplicationResponse> findApplicationByIdentificationNumberAndBirthDate(@RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date birthDate ,@RequestParam String identificationNumber){
         Application application = applicationService.findApplicationByIdentificationNumberAndBirthDateOrThrowException(identificationNumber, birthDate);
         ApplicationResponse applicationResponse = applicationResponseMapper.toDto(application);
+        log.debug("find application {} and {}",birthDate,identificationNumber);
         return ResponseEntity.ok(applicationResponse);
     }
 

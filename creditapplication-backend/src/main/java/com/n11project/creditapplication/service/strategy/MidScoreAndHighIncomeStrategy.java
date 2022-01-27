@@ -17,5 +17,4 @@ public class MidScoreAndHighIncomeStrategy implements CalculateLimitStrategy{
         return creditScore < 1000 && creditScore > 500 && monthlyIncome >= 10000;
     }
 
-
 }

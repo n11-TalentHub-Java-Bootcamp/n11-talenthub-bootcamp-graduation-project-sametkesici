@@ -6,6 +6,7 @@ import com.n11project.creditapplication.model.Customer;
 import com.n11project.creditapplication.repository.ApplicationRepository;
 import com.n11project.creditapplication.service.strategy.StrategyContext;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Date;
@@ -13,6 +14,7 @@ import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ApplicationService {
 
     private final ApplicationRepository applicationRepository;
@@ -24,6 +26,7 @@ public class ApplicationService {
 
     @Transactional
     public Application makeApplication (Customer customer){
+        log.debug("makeApplication is starting");
         Double monthlyIncome = customer.getMonthlyIncome();
         Double assurance = customer.getAssurance();
         Integer creditScore = customer.getCreditScore();

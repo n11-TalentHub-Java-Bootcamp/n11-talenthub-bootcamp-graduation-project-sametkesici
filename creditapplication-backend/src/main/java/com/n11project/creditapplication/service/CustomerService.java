@@ -15,11 +15,13 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import liquibase.pro.packaged.B;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.Date;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CustomerService {
@@ -41,6 +43,7 @@ public class CustomerService {
             customer.setCreditScore(creditScore);
             return saveCustomer(customer);
         }
+        log.error("customer already exist ");
         throw new CustomerAlreadyExistException();
     }
 
@@ -57,6 +60,7 @@ public class CustomerService {
             customer.setAssurance(assurance);
             return saveCustomer(customer);
         }
+        log.error("phone number already exist");
         throw new PhoneNumberAlreadyExistException();
     }
 

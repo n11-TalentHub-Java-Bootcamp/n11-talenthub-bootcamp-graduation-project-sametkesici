@@ -1,4 +1,7 @@
 spring:
+  profiles:
+    active: dev
+
   datasource:
     url: jdbc:postgresql://localhost:5432/creditapplication
     username: db_user
@@ -24,4 +27,5 @@ spring:
 
 logging:
   level:
-    com.n11project.creditapplication: DEBUG
+    com.n11project.creditapplication: TRACE
+
