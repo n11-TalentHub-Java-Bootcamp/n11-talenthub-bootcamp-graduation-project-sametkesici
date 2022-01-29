@@ -1,23 +1,25 @@
-version: "3.8"
-
+version: '3.8'
 services:
-  postgres:
-    container_name: creditapplication_db
+  app:
+    container_name: creditapplication
+    image: creditapplication
+    build: ../
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgresqldb
+  postgresqldb:
     image: postgres
-    restart: unless-stopped
-    volumes:
-      - postgres:/data/postgres
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_DB=creditapplication
-      - POSTGRES_USER=db_user
       - POSTGRES_PASSWORD=123qwe
-    networks:
-      - postgres
-networks:
-  postgres:
-    driver: bridge
-
-volumes:
-  postgres:
+      - POSTGRES_USER=db_user
+      - POSTGRES_DB=creditapplication
+  reactapp:
+    build: ../../creditapplication-client
+    ports:
+      - "3000:3000"
+    image: reactapp:react
+    container_name: react-container
+    command: npm start
