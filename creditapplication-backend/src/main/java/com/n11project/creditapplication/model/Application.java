@@ -30,7 +30,7 @@ public class Application {
   @Column
   private Double creditLimit;
 
-  @Column(nullable = false)
+  @Column
   @Enumerated(EnumType.STRING)
   private ApplicationStatus applicationStatus;
 

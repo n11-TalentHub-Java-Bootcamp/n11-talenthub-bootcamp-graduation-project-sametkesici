@@ -29,7 +29,7 @@ public class ApplicationService {
     Integer creditScore = customer.getCreditScore();
     Application application = strategyContext.calculateLimitAndSetStatus(monthlyIncome, creditScore, assurance);
     application.setCustomer(customer);
-    log.info("Application id to be added -> {}", application.getId());
+    log.info("Send sms here {}", customer.getPhoneNumber());
     return applicationRepository.save(application);
   }
 

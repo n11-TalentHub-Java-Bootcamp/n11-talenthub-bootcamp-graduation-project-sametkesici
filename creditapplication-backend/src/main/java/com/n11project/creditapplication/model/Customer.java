@@ -29,22 +29,22 @@ public class Customer {
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_customer")
   private Long id;
 
-  @Column(nullable = false)
+  @Column
   private String name;
 
-  @Column(nullable = false)
+  @Column
   private String lastName;
 
-  @Column(unique = true, nullable = false)
+  @Column
   private String identificationNumber;
 
-  @Column(nullable = false)
+  @Column
   private Double monthlyIncome;
 
-  @Column(unique = true, nullable = false)
+  @Column
   private String phoneNumber;
 
-  @Column(nullable = false)
+  @Column
   @Temporal(TemporalType.DATE)
   private Date birthDate;
 

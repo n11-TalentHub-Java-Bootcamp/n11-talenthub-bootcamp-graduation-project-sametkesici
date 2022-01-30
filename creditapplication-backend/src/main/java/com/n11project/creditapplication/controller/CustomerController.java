@@ -9,7 +9,6 @@ import com.n11project.creditapplication.model.Application;
 import com.n11project.creditapplication.model.Customer;
 import com.n11project.creditapplication.service.ApplicationService;
 import com.n11project.creditapplication.service.CustomerService;
-import com.n11project.creditapplication.service.SmsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -35,14 +34,11 @@ public class CustomerController {
 
   private final ApplicationResponseMapper applicationResponseMapper;
 
-  private final SmsService smsService;
-    
   @PostMapping
   public ResponseEntity<ApplicationResponse> createCustomer(@RequestBody CreateCustomerRequest createCustomerRequest) {
     Customer customer = createCustomerMapper.toEntity(createCustomerRequest);
     customerService.createCustomer(customer);
     Application application = applicationService.makeApplication(customer);
-    smsService.sendSms(customer.getPhoneNumber(), application.getApplicationStatus(), application.getCreditLimit());
     ApplicationResponse applicationResponse = applicationResponseMapper.toDto(application);
     log.info("Create customer request -> {}", createCustomerRequest.getIdentificationNumber());
     return ResponseEntity.ok(applicationResponse);
@@ -53,7 +49,6 @@ public class CustomerController {
                                                             UpdateCustomerRequest updateCustomerRequest) {
     Customer customer = customerService.updateCustomer(identificationNumber, updateCustomerRequest);
     Application application = applicationService.updateApplication(customer);
-    smsService.sendSms(customer.getPhoneNumber(), application.getApplicationStatus(), application.getCreditLimit());
     ApplicationResponse applicationResponse = applicationResponseMapper.toDto(application);
     log.info("Update customer request -> {}", identificationNumber);
     return ResponseEntity.ok(applicationResponse);

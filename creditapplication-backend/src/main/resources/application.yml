@@ -14,7 +14,7 @@ spring:
     open-in-view: false
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
     database: postgresql
     properties:
       hibernate:
@@ -25,5 +25,7 @@ spring:
     enabled: true
     change-log: classpath:db/changelog/master.xml
 
-
+logging:
+  level:
+    com.n11project.creditapplication: DEBUG
 
