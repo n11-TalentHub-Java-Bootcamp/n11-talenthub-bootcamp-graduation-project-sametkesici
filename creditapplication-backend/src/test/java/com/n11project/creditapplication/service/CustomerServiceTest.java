@@ -4,11 +4,9 @@ package com.n11project.creditapplication.service;
 import com.n11project.creditapplication.dto.request.UpdateCustomerRequest;
 import com.n11project.creditapplication.exception.CustomerAlreadyExistException;
 import com.n11project.creditapplication.exception.InputMismatchException;
-import com.n11project.creditapplication.exception.PhoneNumberAlreadyExistException;
 import com.n11project.creditapplication.model.Customer;
 import com.n11project.creditapplication.repository.CustomerRepository;
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -64,7 +62,7 @@ class CustomerServiceTest {
 
   @Test
   void shouldUpdateCustomerWhenIdentificationNumberIsAlreadyUsed(){
-    UpdateCustomerRequest updateCustomerRequest = UpdateCustomerRequest.builder().phoneNumber("5347208277").assurance(100.0).monthlyIncome(10000.0).build();
+    UpdateCustomerRequest updateCustomerRequest = UpdateCustomerRequest.builder().assurance(100.0).monthlyIncome(10000.0).build();
     when(customerRepository.findByIdentificationNumber("50461491404")).thenReturn(Optional.of(Customer.builder().identificationNumber("50461491404").build()));
 
     customerService.updateCustomer("50461491404",updateCustomerRequest);
@@ -77,17 +75,6 @@ class CustomerServiceTest {
     assertEquals(10000.0,updatedCustomer.getMonthlyIncome());
   }
 
-  @Test
-  void shouldUpdateCustomerThrowExceptionWhenPhoneNumberIsAlreadyUsed(){
-    UpdateCustomerRequest updateCustomerRequest = UpdateCustomerRequest.builder().phoneNumber("5347208277").assurance(100.0).monthlyIncome(10000.0).build();
-    Customer customer = Customer.builder().phoneNumber("5347208277").build();
-
-    when(customerRepository.findByIdentificationNumber("50461491404")).thenReturn(Optional.of(customer));
-
-    when(customerRepository.findAll()).thenReturn(List.of(customer));
-
-    assertThrows(PhoneNumberAlreadyExistException.class , () -> customerService.updateCustomer("50461491404",updateCustomerRequest));
-  }
 
   @Test
   void shouldDeleteByIdentificationNumberCallRepositoryExactId(){

@@ -15,8 +15,5 @@ public class UpdateCustomerRequest {
   @NotNull
   private Double monthlyIncome;
 
-  @NotNull
-  private String phoneNumber;
-
   private Double assurance;
 }

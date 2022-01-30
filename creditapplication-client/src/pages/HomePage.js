@@ -119,7 +119,7 @@ export default function HomePage() {
             />
           </Form.Group>
           <Form.Group as={Col} md="3" controlId="validationCustom06">
-            <Form.Label>Teminat(Opsiyonel)</Form.Label>
+            <Form.Label>Teminat</Form.Label>
             <Form.Control
               onChange={(event) => setAssurance(event.target.value)}
               type="number"
@@ -153,7 +153,7 @@ export default function HomePage() {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Başvuru Sonucu</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <h4>Kredi başvurusu : {applicationStatus}</h4>

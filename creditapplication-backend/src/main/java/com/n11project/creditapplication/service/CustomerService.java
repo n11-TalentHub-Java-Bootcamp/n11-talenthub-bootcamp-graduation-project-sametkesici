@@ -6,7 +6,6 @@ import com.n11project.creditapplication.dto.request.UpdateCustomerRequest;
 import com.n11project.creditapplication.exception.CustomerAlreadyExistException;
 import com.n11project.creditapplication.exception.CustomerNotFoundException;
 import com.n11project.creditapplication.exception.InputMismatchException;
-import com.n11project.creditapplication.exception.PhoneNumberAlreadyExistException;
 import com.n11project.creditapplication.model.Customer;
 import com.n11project.creditapplication.repository.CustomerRepository;
 import java.util.Date;
@@ -49,17 +48,11 @@ public class CustomerService {
   public Customer updateCustomer(String identificationNumber, UpdateCustomerRequest updateCustomerRequest) {
     Customer customer = findCustomerByIdentificationNumberOrThrowException(identificationNumber);
     Double monthlyIncome = updateCustomerRequest.getMonthlyIncome();
-    String phoneNumber = updateCustomerRequest.getPhoneNumber();
     Double assurance = checkAssuranceIsNullAndReturnAssurance(updateCustomerRequest.getAssurance());
-
-    if (FALSE.equals(checkPhoneNumberIsAlreadyUsed(phoneNumber))) {
-      customer.setMonthlyIncome(monthlyIncome);
-      customer.setPhoneNumber(phoneNumber);
-      customer.setAssurance(assurance);
-      return saveCustomer(customer);
-    }
-    log.error("Phone number already exist");
-    throw new PhoneNumberAlreadyExistException();
+    customer.setMonthlyIncome(monthlyIncome);
+    customer.setAssurance(assurance);
+    log.info("Customer update -> {}" , customer.getId());
+    return saveCustomer(customer);
   }
 
   @Transactional

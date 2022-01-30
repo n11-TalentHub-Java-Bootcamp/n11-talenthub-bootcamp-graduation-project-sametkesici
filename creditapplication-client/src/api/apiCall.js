@@ -12,6 +12,6 @@ export const findApplication = (birthDate, identificationNumber) => {
 
 export const updateCustomer = (updateRequest) => {
   return axios.put(
-    `/customer/${updateRequest.identificationNumber}?monthlyIncome=${updateRequest.monthlyIncome}&phoneNumber=${updateRequest.phoneNumber}&assurance=${updateRequest.assurance}`
+    `/customer/${updateRequest.identificationNumber}?monthlyIncome=${updateRequest.monthlyIncome}&assurance=${updateRequest.assurance}`
   );
 };

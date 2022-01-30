@@ -7,7 +7,6 @@ function UpdateCustomer() {
   const [monthlyIncome, setMonthlyIncome] = useState();
   const [assurance, setAssurance] = useState(0);
   const [identificationNumber, setIdentificationNumber] = useState();
-  const [phoneNumber, setPhoneNumber] = useState();
   const [errorResponse, setErrorResponse] = useState();
 
   const [showAlert, setShowAlert] = useState(false);
@@ -23,7 +22,6 @@ function UpdateCustomer() {
       monthlyIncome,
       identificationNumber,
       assurance,
-      phoneNumber,
     };
 
     try {
@@ -71,18 +69,6 @@ function UpdateCustomer() {
           </div>
           <div className="col-md-12 mt-3">
             <label htmlFor="validationDefault05" className="form-label">
-              Telefon Numarası
-            </label>
-            <input
-              onChange={(event) => setPhoneNumber(event.target.value)}
-              type="text"
-              className="form-control"
-              id="validationDefault05"
-              required
-            />
-          </div>
-          <div className="col-md-12 mt-3">
-            <label htmlFor="validationDefault05" className="form-label">
               Aylık Maaş
             </label>
             <input
@@ -95,7 +81,7 @@ function UpdateCustomer() {
           </div>
           <div className="col-md-12 mt-3">
             <label htmlFor="validationDefault05" className="form-label">
-              Teminat(Opsiyonel)
+              Teminat
             </label>
             <input
               onChange={(event) => setAssurance(event.target.value)}

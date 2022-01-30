@@ -12,6 +12,5 @@ public class FindApplicationRequest {
   private String identificationNumber;
 
   @NotNull
-  @DateTimeFormat(pattern = "yyyy-MM-dd")
   private Date birthDate;
 }
