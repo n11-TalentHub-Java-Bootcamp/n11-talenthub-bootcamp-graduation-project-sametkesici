@@ -26,6 +26,7 @@
 
     cd compose && docker-compose up postgresqldb
     change application.yaml file for db connection ( url: jdbc:postgresql://localhost:5432/creditapplication )
+    change creditapplication-client -> package.json -> proxy ( "proxy": "http://localhost:8080" )
     Build project
 
 ## Liquibase <a name="liquibase"></a>
