@@ -19,27 +19,6 @@ class MidScoreStrategyTest {
 
 
   @Test
-  void shouldCalculateLimitCorrectly() {
-
-    Double monthlyIncome = 6000.0;
-    Double assurance = 100.0;
-    Double creditLimit = 20000 + assurance / 5;
-    Double expectedCreditLimit = midScoreStrategy.calculateLimit(monthlyIncome, assurance);
-
-    assertEquals(creditLimit, expectedCreditLimit);
-  }
-
-  @Test
-  void shouldSuitForCalculate() {
-    Double monthlyIncome = 7000.0;
-    Integer creditScore = 600;
-
-    Boolean expected = midScoreStrategy.isSuitable(monthlyIncome, creditScore);
-
-    assertEquals(TRUE, expected);
-  }
-
-  @Test
   void shouldNotSuitForCalculate() {
 
     Double monthlyIncome = 10500.0;
