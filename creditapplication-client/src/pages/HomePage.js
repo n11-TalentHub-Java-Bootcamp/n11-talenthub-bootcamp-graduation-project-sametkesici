@@ -98,7 +98,6 @@ export default function HomePage() {
               onChange={(event) => setIdentificationNumber(event.target.value)}
               required
               type="number"
-              placeholder="Kimlik Numarası"
             />
           </Form.Group>
         </Row>
@@ -118,7 +117,6 @@ export default function HomePage() {
             <Form.Control
               onChange={(event) => setMonthlyIncome(event.target.value)}
               type="number"
-              placeholder="State"
               required
             />
           </Form.Group>
@@ -127,7 +125,6 @@ export default function HomePage() {
             <Form.Control
               onChange={(event) => setAssurance(event.target.value)}
               type="number"
-              placeholder="Teminat"
             />
           </Form.Group>
         </Row>
@@ -144,12 +141,6 @@ export default function HomePage() {
         <Button className="mt-3" type="submit">
           Kaydet
         </Button>
-
-        <h5 className="mt-5">
-          Twilio API üzerinden Türkiye'ye gönderilen smslerde kişisel kullanım
-          kısıtlamalarından dolayı sadece Vodafone operatörüne smsler
-          ulaşmaktadır.
-        </h5>
 
         <Alert
           className="mt-3"

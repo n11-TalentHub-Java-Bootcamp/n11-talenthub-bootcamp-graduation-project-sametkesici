@@ -14,9 +14,6 @@ function UpdateCustomer() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
-  const [name, setName] = useState("");
-  const [lastName, setLastName] = useState("");
   const [applicationStatus, setApplicationStatus] = useState("");
   const [creditLimit, setCreditLimit] = useState(0);
 
@@ -32,8 +29,6 @@ function UpdateCustomer() {
     try {
       const response = await updateCustomer(creds);
       console.log(response.data);
-      setName(response.data.customer.name);
-      setLastName(response.data.customer.lastName);
       setApplicationStatus(response.data.applicationStatus);
       setCreditLimit(response.data.creditLimit);
       handleShow();
@@ -130,9 +125,6 @@ function UpdateCustomer() {
             <Modal.Title>Güncellenmiş Başvuru Sonucu</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <h4>
-              Müşteri Adı ve Soyadı : {name} {lastName}
-            </h4>
             <h4>Kredi Durumu : {applicationStatus}</h4>
             <h4>Kredi Limiti : {creditLimit}</h4>
           </Modal.Body>
