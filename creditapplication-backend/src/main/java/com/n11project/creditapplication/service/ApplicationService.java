@@ -29,14 +29,14 @@ public class ApplicationService {
     Integer creditScore = customer.getCreditScore();
     Application application = strategyContext.calculateLimitAndSetStatus(monthlyIncome, creditScore, assurance);
     application.setCustomer(customer);
-    log.info("Send sms here {}", customer.getPhoneNumber());
+    log.debug("Send sms to phoneNumber : {}  Application Status : {} Credit Limit : {} ", customer.getPhoneNumber() , application.getApplicationStatus() , application.getCreditLimit());
     return applicationRepository.save(application);
   }
 
   @Transactional
   public Application updateApplication(Customer customer) {
     Application application = findApplicationByCustomerOrThrowException(customer);
-    log.info("Application id to be updated -> {}", application.getId());
+
     Integer creditScore = customer.getCreditScore();
     Double monthlyIncome = customer.getMonthlyIncome();
     Double assurance = customer.getAssurance();
@@ -44,6 +44,8 @@ public class ApplicationService {
         .calculateLimitAndSetStatus(monthlyIncome, creditScore, assurance)
         .getCreditLimit();
     application.setCreditLimit(creditLimit);
+    log.info("Application id to be updated -> {}", application.getId());
+    log.debug("Send sms to phoneNumber : {}  Application Status : {} Credit Limit : {} ", customer.getPhoneNumber() , application.getApplicationStatus() , application.getCreditLimit());
     return applicationRepository.save(application);
   }
 
