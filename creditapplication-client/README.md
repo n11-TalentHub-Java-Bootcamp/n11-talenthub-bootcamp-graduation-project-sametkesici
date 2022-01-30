@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+1. [How To Run](#htr)
+    1. [Docker](#docker)
+    2. [Local](#local)
+2. [Liquibase](#liquibase)
+3. [Logging](#logging)
+4. [Design Pattern](#designpattern)
+5. [Docker](#docker)
+6. [Swagger](#swagger)
+7. [Unit Tests](#tests)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## How To Run <a name="run"></a>
 
-## Available Scripts
+### Running as docker container <a name="docker"></a>
 
-In the project directory, you can run:
+    cd compose && docker-compose up
+    client,db and backend will start working together.
+      
+    backend : localhost:8080
+    client : localhost:3000
+    db : localhost:5432
 
-### `npm start`
+### Locally <a name="local"></a>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+    cd compose && docker-compose up postgresqldb
+    change application.yaml file for db connection ( url: jdbc:postgresql://localhost:5432/creditapplication )
+    Build project
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Liquibase <a name="liquibase"></a>
 
-### `npm test`
+I have used **Liquibase** for managing database tables, sequences and default data. It will create all stuff on first run
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Logging <a name="logging"></a>
 
-### `npm run build`
+Logging configuration is located in the resource folder file named logback-spring.xml.Logs are saved in a folder named logs in the main directory.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Design Pattern <a name="designpattern"></a>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Strategy Design Pattern using for credit limit calculation. You can find it in the service package with the name strategy.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Docker <a name="docker"></a>
 
-### `npm run eject`
+Application only needs postgres to run and you can run it from docker-compose also application is dockerized you can find steps at the top of the page
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Swagger <a name="swagger"></a>
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Swagger url = localhost:8080/swagger-ui.html
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Unit Tests <a name="tests"></a>
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+I have tried to write unit tests for business code. I have used JUni5 with Mockito

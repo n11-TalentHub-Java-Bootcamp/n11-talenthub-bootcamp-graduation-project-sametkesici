@@ -107,8 +107,6 @@ export default function HomePage() {
             <Form.Control
               onChange={(event) => setPhoneNumber(event.target.value)}
               type="number"
-              placeholder="Telefon Numarası"
-              defaultValue="905347208277"
               required
             />
           </Form.Group>
