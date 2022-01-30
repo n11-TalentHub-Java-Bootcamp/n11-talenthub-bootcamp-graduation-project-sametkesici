@@ -1,5 +1,5 @@
 1. [How To Run](#htr)
-   1. [Docker](#docker)
+   1. [Docker](#docker-how)
    2. [Local](#local)
 2. [Liquibase](#liquibase)
 3. [Logging](#logging)
@@ -10,7 +10,7 @@
 
 ## How To Run <a name="run"></a>
 
-### Running as docker container <a name="docker"></a>
+### Running as docker container <a name="docker-how"></a>
 
     cd creditapplication-backend/compose && docker-compose up
     client,db and backend will start working together.
