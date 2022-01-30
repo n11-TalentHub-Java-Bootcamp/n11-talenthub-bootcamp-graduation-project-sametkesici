@@ -2,6 +2,54 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
-    <changeSet id="19-01-2022 19:59" author="kesici.samet">
-    </changeSet>
+  <changeSet id="19-01-2022 19:59" author="kesici.samet">
+    <createTable tableName="customers">
+      <column name="id" type="bigint">
+        <constraints primaryKey="true" />
+      </column>
+      <column name="name" type="varchar(255)">
+        <constraints nullable="false" />
+      </column>
+      <column name="last_name" type="varchar(255)">
+        <constraints nullable="false" />
+      </column>
+      <column name="assurance" type="double precision" />
+      <column name="birth_date" type="date">
+        <constraints nullable="false" />
+      </column>
+      <column name="credit_score" type="varchar(255)" />
+      <column name="identification_number" type="varchar(255)">
+        <constraints unique="true" nullable="false" />
+      </column>
+      <column name="monthly_income" type="double precision">
+        <constraints nullable="false" />
+      </column>
+      <column name="phone_number" type="varchar(255)">
+        <constraints unique="true" nullable="false" />
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet id="23-01-2022 13.26" author="kesici.samet">
+    <createTable tableName="applications">
+      <column name="id" type="bigint">
+        <constraints primaryKey="true" />
+      </column>
+      <column name="credit_limit" type="double precision" />
+      <column name="application_status" type="varchar(255)">
+        <constraints nullable="false" />
+      </column>
+      <column name="customer_id" type="bigint" />
+    </createTable>
+    <addForeignKeyConstraint baseTableName="applications"
+                             baseColumnNames="customer_id"
+                             constraintName="FK_application_customer_id"
+                             referencedTableName="customers"
+                             referencedColumnNames="id" />
+  </changeSet>
+
+  <changeSet id="30-01-2022 17.03" author="kesici.samet">
+    <createSequence sequenceName="seq_customer" startValue="100" incrementBy="50" />
+    <createSequence sequenceName="seq_application" startValue="100" incrementBy="50" />
+  </changeSet>
 </databaseChangeLog>
