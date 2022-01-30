@@ -1,6 +1,6 @@
 1. [How To Run](#htr)
-    1. [Docker](#docker)
-    2. [Local](#local)
+   1. [Docker](#docker)
+   2. [Local](#local)
 2. [Liquibase](#liquibase)
 3. [Logging](#logging)
 4. [Design Pattern](#designpattern)
@@ -12,9 +12,9 @@
 
 ### Running as docker container <a name="docker"></a>
 
-    cd compose && docker-compose up
+    cd creditapplication-backend/compose && docker-compose up
     client,db and backend will start working together.
-      
+
     backend : localhost:8080
     client : localhost:3000
     db : localhost:5432
