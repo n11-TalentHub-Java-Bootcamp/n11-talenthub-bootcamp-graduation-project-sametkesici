@@ -1,5 +1,3 @@
-# Table of contents
-
 1. [How To Run](#htr)
     1. [Docker](#docker)
     2. [Local](#local)
