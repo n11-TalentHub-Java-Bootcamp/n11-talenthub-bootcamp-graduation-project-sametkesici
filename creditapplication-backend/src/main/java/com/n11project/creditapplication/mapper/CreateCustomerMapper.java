@@ -5,5 +5,4 @@ import com.n11project.creditapplication.model.Customer;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface CreateCustomerMapper extends BaseMapper<Customer, CreateCustomerRequest> {
-}
+public interface CreateCustomerMapper extends BaseMapper<Customer, CreateCustomerRequest> {}

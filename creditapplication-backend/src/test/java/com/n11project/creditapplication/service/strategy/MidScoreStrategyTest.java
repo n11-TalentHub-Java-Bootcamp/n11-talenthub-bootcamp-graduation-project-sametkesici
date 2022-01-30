@@ -1,21 +1,22 @@
 package com.n11project.creditapplication.service.strategy;
 
-import static com.n11project.creditapplication.constants.CreditMultiplierConstant.CREDIT_LIMIT_MULTIPLIER;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 import static org.junit.jupiter.api.Assertions.*;
 
+import liquibase.pro.packaged.E;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+@ExtendWith(MockitoExtension.class)
 class MidScoreStrategyTest {
 
-  MidScoreStrategy midScoreStrategy;
+  @Mock
+  private MidScoreStrategy midScoreStrategy;
 
-  @BeforeEach
-  void setUp() {
-    midScoreStrategy = new MidScoreStrategy();
-  }
 
   @Test
   void shouldCalculateLimitCorrectly() {

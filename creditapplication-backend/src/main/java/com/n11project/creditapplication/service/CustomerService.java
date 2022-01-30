@@ -9,95 +9,96 @@ import com.n11project.creditapplication.exception.InputMismatchException;
 import com.n11project.creditapplication.exception.PhoneNumberAlreadyExistException;
 import com.n11project.creditapplication.model.Customer;
 import com.n11project.creditapplication.repository.CustomerRepository;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
-import liquibase.pro.packaged.B;
+import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import javax.transaction.Transactional;
-import java.math.BigDecimal;
-import java.util.Date;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class CustomerService {
 
-    private final CustomerRepository customerRepository;
+  private final CustomerRepository customerRepository;
 
-    private final CreditScoreService creditScoreService;
+  private final CreditScoreService creditScoreService;
 
+  @Transactional
+  public Customer createCustomer(Customer customer) {
+    String identificationNumber = customer.getIdentificationNumber();
+    String phoneNumber = customer.getPhoneNumber();
+    Double assurance = checkAssuranceIsNullAndReturnAssurance(customer.getAssurance());
 
-    @Transactional
-    public Customer createCustomer(Customer customer) {
-        String identificationNumber = customer.getIdentificationNumber();
-        String phoneNumber = customer.getPhoneNumber();
-        Double assurance = checkAssuranceIsNullAndReturnAssurance(customer.getAssurance());
-
-        if(customerRepository.findByIdentificationNumber(identificationNumber).isEmpty() && FALSE.equals(checkPhoneNumberIsAlreadyUsed(phoneNumber))){
-            Integer creditScore = creditScoreService.getCreditScore();
-            customer.setAssurance(assurance);
-            customer.setCreditScore(creditScore);
-            return saveCustomer(customer);
-        }
-        log.error("customer already exist ");
-        throw new CustomerAlreadyExistException();
+    if (customerRepository.findByIdentificationNumber(identificationNumber).isEmpty() && FALSE.equals(
+        checkPhoneNumberIsAlreadyUsed(phoneNumber))) {
+      Integer creditScore = creditScoreService.getCreditScore();
+      customer.setAssurance(assurance);
+      customer.setCreditScore(creditScore);
+      return saveCustomer(customer);
     }
+    log.error("Customer already exist");
+    throw new CustomerAlreadyExistException();
+  }
 
-    @Transactional
-    public Customer updateCustomer(String identificationNumber, UpdateCustomerRequest updateCustomerRequest) {
-        Customer customer = findCustomerByIdentificationNumberOrThrowException(identificationNumber);
-        Double monthlyIncome = updateCustomerRequest.getMonthlyIncome();
-        String phoneNumber = updateCustomerRequest.getPhoneNumber();
-        Double assurance = checkAssuranceIsNullAndReturnAssurance(updateCustomerRequest.getAssurance());
+  @Transactional
+  public Customer updateCustomer(String identificationNumber, UpdateCustomerRequest updateCustomerRequest) {
+    Customer customer = findCustomerByIdentificationNumberOrThrowException(identificationNumber);
+    Double monthlyIncome = updateCustomerRequest.getMonthlyIncome();
+    String phoneNumber = updateCustomerRequest.getPhoneNumber();
+    Double assurance = checkAssuranceIsNullAndReturnAssurance(updateCustomerRequest.getAssurance());
 
-        if(FALSE.equals(checkPhoneNumberIsAlreadyUsed(phoneNumber))){
-            customer.setMonthlyIncome(monthlyIncome);
-            customer.setPhoneNumber(phoneNumber);
-            customer.setAssurance(assurance);
-            return saveCustomer(customer);
-        }
-        log.error("phone number already exist");
-        throw new PhoneNumberAlreadyExistException();
+    if (FALSE.equals(checkPhoneNumberIsAlreadyUsed(phoneNumber))) {
+      customer.setMonthlyIncome(monthlyIncome);
+      customer.setPhoneNumber(phoneNumber);
+      customer.setAssurance(assurance);
+      return saveCustomer(customer);
     }
+    log.error("Phone number already exist");
+    throw new PhoneNumberAlreadyExistException();
+  }
 
-    @Transactional
-    public void deleteByIdentificationNumber(String identificationNumber) {
-        Customer customer = findCustomerByIdentificationNumberOrThrowException(identificationNumber);
-        customerRepository.deleteById(customer.getId());
+  @Transactional
+  public void deleteByIdentificationNumber(String identificationNumber) {
+    Customer customer = findCustomerByIdentificationNumberOrThrowException(identificationNumber);
+    log.debug("Customer id want to delete -> {}", customer.getId());
+    customerRepository.deleteById(customer.getId());
+  }
+
+  public Customer findCustomerByIdentificationNumberAndBirthDateOrThrowException(String identificationNumber,
+                                                                                 Date birthDate) {
+    return customerRepository
+        .findByIdentificationNumberAndBirthDate(identificationNumber, birthDate)
+        .orElseThrow(InputMismatchException::new);
+  }
+
+  public Customer saveCustomer(Customer customer) {
+    return customerRepository.save(customer);
+  }
+
+  private Double checkAssuranceIsNullAndReturnAssurance(Double assurance) {
+    if (Objects.isNull(assurance)) {
+      return 0.0;
     }
+    return assurance;
+  }
 
-    public Customer findCustomerByIdentificationNumberAndBirthDateOrThrowException(String identificationNumber , Date birthDate){
-        return customerRepository.findByIdentificationNumberAndBirthDate(identificationNumber,birthDate).orElseThrow(InputMismatchException::new);
-    }
+  private Boolean checkPhoneNumberIsAlreadyUsed(String phoneNumber) {
+    return findAllPhoneNumbers().contains(phoneNumber);
+  }
 
-    public Customer saveCustomer(Customer customer){
-        return customerRepository.save(customer);
-    }
+  private Set<String> findAllPhoneNumbers() {
+    List<Customer> customerList = customerRepository.findAll();
+    return customerList.stream().map(Customer::getPhoneNumber).collect(Collectors.toSet());
+  }
 
-    private Double checkAssuranceIsNullAndReturnAssurance(Double assurance) {
-        if(Objects.isNull(assurance)){
-            return 0.0;
-        }
-        return assurance;
-    }
-
-    private Boolean checkPhoneNumberIsAlreadyUsed(String phoneNumber){
-        return findAllPhoneNumbers().contains(phoneNumber);
-    }
-
-    private Set<String> findAllPhoneNumbers(){
-        List<Customer> customerList = customerRepository.findAll();
-        return customerList.stream().map(Customer::getPhoneNumber).collect(Collectors.toSet());
-    }
-
-    private Customer findCustomerByIdentificationNumberOrThrowException(String identificationNumber){
-        return customerRepository.findByIdentificationNumber(identificationNumber).orElseThrow(CustomerNotFoundException::new);
-    }
-
-
-
+  private Customer findCustomerByIdentificationNumberOrThrowException(String identificationNumber) {
+    return customerRepository
+        .findByIdentificationNumber(identificationNumber)
+        .orElseThrow(CustomerNotFoundException::new);
+  }
 }

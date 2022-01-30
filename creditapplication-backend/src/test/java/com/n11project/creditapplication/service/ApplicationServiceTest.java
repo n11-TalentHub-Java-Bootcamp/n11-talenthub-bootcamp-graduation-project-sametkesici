@@ -13,6 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static com.n11project.creditapplication.model.ApplicationStatus.REJECTED;
@@ -35,6 +36,7 @@ class ApplicationServiceTest {
   @InjectMocks
   private ApplicationService applicationService;
 
+
   @Test
   void shouldMakeApplicationWhen() {
     Customer customer = Customer.builder().id(1L).name("Samet").lastName("Kesici").identificationNumber("50461491404").phoneNumber("5347208277")
@@ -46,11 +48,9 @@ class ApplicationServiceTest {
     ArgumentCaptor<Application> applicationArgumentCaptor = ArgumentCaptor.forClass(Application.class);
     verify(applicationRepository).save(applicationArgumentCaptor.capture());
     Application savedApplication = applicationArgumentCaptor.getValue();
-
     assertEquals(APPROVED,savedApplication.getApplicationStatus());
     assertEquals(600.0,savedApplication.getCreditLimit());
     assertEquals(1L,savedApplication.getCustomer().getId());
-
   }
 
   @Test
@@ -66,8 +66,8 @@ class ApplicationServiceTest {
     applicationService.updateApplication(customer);
     ArgumentCaptor<Application> applicationArgumentCaptor = ArgumentCaptor.forClass(Application.class);
     verify(applicationRepository).save(applicationArgumentCaptor.capture());
-    Application updatedApplication = applicationArgumentCaptor.getValue();
 
+    Application updatedApplication = applicationArgumentCaptor.getValue();
     assertEquals(REJECTED,updatedApplication.getApplicationStatus());
     assertEquals(300,updatedApplication.getCreditLimit());
     assertEquals(customer,application.getCustomer());
@@ -85,7 +85,6 @@ class ApplicationServiceTest {
     when(applicationRepository.findByCustomer(customer)).thenReturn(Optional.of(application));
 
     Application expectedApplication = applicationService.findApplicationByIdentificationNumberAndBirthDateOrThrowException("121212345",customer.getBirthDate());
-
 
     assertEquals(APPROVED,expectedApplication.getApplicationStatus());
 

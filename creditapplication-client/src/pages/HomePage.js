@@ -26,13 +26,17 @@ export default function HomePage() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  let phoneNumberWithPlus = "";
+
   const onClickCreate = async (event) => {
     event.preventDefault();
     setShowAlert(false);
+    phoneNumberWithPlus += "+" + phoneNumber;
+    console.log(phoneNumberWithPlus);
     const creds = {
       name,
       lastName,
-      phoneNumber,
+      phoneNumber: phoneNumberWithPlus,
       monthlyIncome,
       identificationNumber,
       assurance,
@@ -105,6 +109,7 @@ export default function HomePage() {
               onChange={(event) => setPhoneNumber(event.target.value)}
               type="number"
               placeholder="Telefon Numarası"
+              defaultValue="905347208277"
               required
             />
           </Form.Group>
@@ -139,6 +144,12 @@ export default function HomePage() {
         <Button className="mt-3" type="submit">
           Kaydet
         </Button>
+
+        <h5 className="mt-5">
+          Twilio API üzerinden Türkiye'ye gönderilen smslerde kişisel kullanım
+          kısıtlamalarından dolayı sadece Vodafone operatörüne smsler
+          ulaşmaktadır.
+        </h5>
 
         <Alert
           className="mt-3"

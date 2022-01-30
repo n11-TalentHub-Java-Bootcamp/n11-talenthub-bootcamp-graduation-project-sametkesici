@@ -5,15 +5,15 @@ import static java.lang.Boolean.TRUE;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+@ExtendWith(MockitoExtension.class)
 class RejectStrategyTest {
 
-  RejectStrategy rejectStrategy;
-
-  @BeforeEach
-  void setUp(){
-    rejectStrategy = new RejectStrategy();
-  }
+  @InjectMocks
+  private RejectStrategy rejectStrategy;
 
   @Test
   void shouldReturnLimitZero(){

@@ -2,21 +2,22 @@ package com.n11project.creditapplication.service.strategy;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static com.n11project.creditapplication.constants.CreditMultiplierConstant.CREDIT_LIMIT_MULTIPLIER;
+import static com.n11project.creditapplication.constant.CreditMultiplierConstant.CREDIT_LIMIT_MULTIPLIER;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
+@ExtendWith(MockitoExtension.class)
 class HighScoreStrategyTest {
 
-  HighScoreStrategy highScoreStrategy;
 
-  @BeforeEach
-  void setUp(){
-    highScoreStrategy = new HighScoreStrategy();
-  }
+  @Mock
+  private HighScoreStrategy highScoreStrategy;
 
   @Test
   void shouldCalculateLimitCorrectly() {

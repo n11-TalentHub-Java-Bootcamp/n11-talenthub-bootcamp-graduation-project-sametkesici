@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class CreditApplicationControllerAdvice {
 
-    @ExceptionHandler(BaseException.class)
-    public ResponseEntity<ErrorResponse> handleBaseException(Exception exception){
-        BaseException baseException = (BaseException) exception;
-        ErrorResponse errorResponse = new ErrorResponse();
-        errorResponse.setMessage(baseException.getMessage());
-        errorResponse.setType(exception.getClass().getSimpleName());
-        return new ResponseEntity<>(errorResponse,new HttpHeaders(), baseException.getHttpStatus());
-    }
+  @ExceptionHandler(BaseException.class)
+  public ResponseEntity<ErrorResponse> handleBaseException(Exception exception) {
+    BaseException baseException = (BaseException) exception;
+    ErrorResponse errorResponse = new ErrorResponse();
+    errorResponse.setMessage(baseException.getMessage());
+    errorResponse.setType(exception.getClass().getSimpleName());
+    return new ResponseEntity<>(errorResponse, new HttpHeaders(), baseException.getHttpStatus());
+  }
 }

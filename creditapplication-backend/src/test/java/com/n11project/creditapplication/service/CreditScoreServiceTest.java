@@ -5,6 +5,7 @@ import com.n11project.creditapplication.util.CreditScoreUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -15,12 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ExtendWith(MockitoExtension.class)
 class CreditScoreServiceTest {
 
-  CreditScoreService creditScoreService;
-
-  @BeforeEach
-  void setUp(){
-    creditScoreService = new CreditScoreService();
-  }
+  @InjectMocks
+  private CreditScoreService creditScoreService;
 
   @Test
   void getCreditScore() {

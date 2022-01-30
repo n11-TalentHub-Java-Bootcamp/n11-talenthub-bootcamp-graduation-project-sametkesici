@@ -1,11 +1,9 @@
 package com.n11project.creditapplication.dto.request;
 
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-
-import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
 import lombok.NoArgsConstructor;
 
 @Data
@@ -14,12 +12,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UpdateCustomerRequest {
 
-    @NotNull
-    private Double monthlyIncome;
+  @NotNull
+  private Double monthlyIncome;
 
-    @NotNull
-    private String phoneNumber;
+  @NotNull
+  private String phoneNumber;
 
-    private Double assurance;
-
+  private Double assurance;
 }

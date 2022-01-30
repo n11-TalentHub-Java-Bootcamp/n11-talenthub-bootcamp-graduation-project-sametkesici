@@ -4,17 +4,17 @@ import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+@ExtendWith(MockitoExtension.class)
 class LowScoreStrategyTest {
 
-  LowScoreStrategy lowScoreStrategy;
-
-  @BeforeEach
-  void setUp() {
-    lowScoreStrategy = new LowScoreStrategy();
-  }
+  @InjectMocks
+  private LowScoreStrategy lowScoreStrategy;
 
   @Test
   void shouldCalculateLimitCorrectly() {

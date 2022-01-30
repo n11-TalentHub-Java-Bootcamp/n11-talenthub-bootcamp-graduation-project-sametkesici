@@ -3,7 +3,7 @@ spring:
     active: dev
 
   datasource:
-    url: jdbc:postgresql://postgresqldb:5432/creditapplication
+    url: jdbc:postgresql://localhost:5432/creditapplication
     username: db_user
     password: 123qwe
     hikari:
@@ -25,7 +25,5 @@ spring:
     enabled: true
     change-log: classpath:db/changelog/master.xml
 
-logging:
-  level:
-    com.n11project.creditapplication: TRACE
+
 
