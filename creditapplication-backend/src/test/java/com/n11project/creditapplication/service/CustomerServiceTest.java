@@ -70,7 +70,6 @@ class CustomerServiceTest {
 
     verify(customerRepository).save(customerArgumentCaptor.capture());
     Customer updatedCustomer = customerArgumentCaptor.getValue();
-    assertEquals("5347208277",updatedCustomer.getPhoneNumber());
     assertEquals(100.0, updatedCustomer.getAssurance());
     assertEquals(10000.0,updatedCustomer.getMonthlyIncome());
   }
