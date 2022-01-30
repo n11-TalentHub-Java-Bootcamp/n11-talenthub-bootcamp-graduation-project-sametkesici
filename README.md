@@ -7,6 +7,7 @@
 5. [Docker](#docker)
 6. [Swagger](#swagger)
 7. [Unit Tests](#tests)
+8. [Screenshots](#screenshots)
 
 ## How To Run <a name="run"></a>
 
@@ -48,3 +49,13 @@ Swagger url = localhost:8080/swagger-ui.html
 ## Unit Tests <a name="tests"></a>
 
 I have tried to write unit tests for business code. I have used JUni5 with Mockito
+
+## Screenshots <a name="screenshots"></a>
+
+![Example screenshot](./image/1.PNG)
+
+![Example screenshot](./image/2.PNG)
+
+![Example screenshot](./image/3.PNG)
+
+![Example screenshot](./image/4.PNG)
